@@ -3,6 +3,36 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { createStore } from 'redux';
+
+let initialState = {
+  elma : 0,  
+}
+
+const reducer = (state = initialState, action) => {
+  switch(action.type){
+    case "EKLE":
+      return { elma : state.elma + action.payload };
+    case "CIKART":
+      return { elma : state.elma - action.payload };
+    default:
+      return state
+  }
+}
+
+const store = createStore(reducer)
+
+//console.log(store)
+store.subscribe(()=>console.log("Store değişti ",store.getState()))
+//console.log(store.getState())
+
+store.dispatch({type:"EKLE", payload:5})
+store.dispatch({type:"EKLE", payload:10})
+
+//console.log(store.getState())
+
+store.dispatch({type:"CIKART", payload:4})
+//console.log(store.getState())
 
 ReactDOM.render(
   <React.StrictMode>
